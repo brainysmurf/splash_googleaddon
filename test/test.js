@@ -4,12 +4,26 @@
 	let assert = require('chai').assert;
 	let app = require('./virtual').app;
 
-	describe("Layer", function () {
+	describe("Persistence", function () {
 
-		describe("Behaviour", function () {
+		describe("Buttons", function () {
+
+			var sheet = null;
 			
-			it('does something', function () {
-				app.load;  // app code is available
+			it('saves', function () {
+				let buttonTitle = 'Title',
+					buttonLink = 'Link';
+				app.saveButton(sheet, buttonTitle, buttonLink);
+				var buttons = app.getButtons();
+				assert.deepEqual(buttons, [
+					[buttonTitle, buttonLink]
+				]);
+			});
+
+			it('clears', function () {
+				app.clearButtons();
+				var buttons = app.getButtons(sheet);
+				assert.deepEqual(buttons, []);
 			});
 
 		});

@@ -16,6 +16,7 @@
 
   globalContext.app = {};
   app.name = 'Splash';
+  app.buttons = [];
 
   app.onOpen = function(ui) {
     var html = HtmlService.createTemplateFromFile('Sidebar').evaluate()
@@ -29,7 +30,18 @@
       .setTitle(app.name)
   }
 
-  app.createMenus = function() {
+  app.load = function() {
+  };
+
+  app.clearButtons = function() {
+  };
+
+  app.saveButton = function (sheet, btnTitle, btnLink) {
+
+  };
+
+  app.getButtons = function (sheet) {
+
   };
 
 })(this);
