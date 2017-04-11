@@ -33,16 +33,26 @@
   app.load = function() {
   };
 
-  app.clearButtons = function() {
-    app.buttons = [];
+  app.clearButtons = function(sheet) {
+    sheet.clear();
+  };
+
+  app.sheetFromName = function (sheetTitle) {
+    return SpreadsheetApp.openById('1Zno-VmwFcHob_TnMfIhO8FndE3QNs4kv6wu14S0gtlk').getSheetByName(sheetTitle);
   };
 
   app.saveButton = function (sheet, btnTitle, btnLink) {
-    app.buttons.push([btnTitle, btnLink]);
+    if (typeof sheet == 'string') {
+      sheet = app.sheetFromName(sheet);
+    }
+    sheet.appendRow([btnTitle, btnLink]);
   };
 
   app.getButtons = function (sheet) {
-    return app.buttons;
+    if (typeof sheet == 'string') {
+      sheet = app.sheetFromName(sheet);
+    }
+    return sheet.getDataRange().getValues();
   };
 
 })(this);

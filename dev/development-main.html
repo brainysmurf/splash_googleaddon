@@ -3,10 +3,6 @@ CSS, HTML, Javascript code that only runs on local clientside
 Excluded from copying to source folder
 -->
 
-<style>
-
-</style>
-
 <script>
 
 (function (window) {
@@ -37,8 +33,11 @@ Excluded from copying to source folder
         // store mocked functions that interface with app scripts
 
         clientSideMocks: {
-            func: function () { 
-                /* function code here */
+            saveButton: function () {
+                var title = $('#buttonName').val(),
+                    link = $('#buttonLink').val();
+
+                $('#result').text(title + '/' + link);
             },
         },
 
@@ -89,7 +88,6 @@ Excluded from copying to source folder
                     return promise; 
                 };
             }
-
         }
     };
 

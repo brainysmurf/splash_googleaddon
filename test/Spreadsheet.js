@@ -1,11 +1,16 @@
 function transpose(a) {
+	if (a.length == 0) {
+		return [];
+	}
     return Object.keys(a[0]).map(
         function (c) { return a.map(function (r) { return r[c]; }); }
     );
 }
 
+let defaultMdArr = [];
+
 function Range(raw, sheet) {
-	this.raw = raw || [['']];
+	this.raw = raw || defaultMdArr;
 	this.sheet = sheet;
 	return {
 		raw: this.raw,
@@ -42,7 +47,7 @@ function Range(raw, sheet) {
 
 function Sheet(title, mdarr) {
 	this.title = title;
-	this.mdarr = mdarr;  // multi-dimentional array
+	this.mdarr = mdarr || [];  // multi-dimentional array
 
 	return {
 		title: this.title,
@@ -149,6 +154,11 @@ function Sheet(title, mdarr) {
 			return Range(this.mdArrIndexesToValues(this.mdarr, [ [column-1, row-1], [column-1+numColumns, row-1+numRows] ]), this);
 		},
 
+		clear: function() {
+			this.mdarr = defaultMdArr;
+
+		},
+
 		getFrozenRows: function () { return 2 },
 
 		/**
@@ -196,11 +206,33 @@ function Sheet(title, mdarr) {
 		getLastColumn: function () {
 			return this.mdarr.length + 1;
 		},
+
+		getLastRow: function () {
+			var maxLength = 0;
+			this.mdarr.forEach(function (column) {
+				if (column.length + 1 > maxLength) {
+					maxLength = column.length + 1;
+				}
+			});
+			return maxLength;
+		},
+
+		appendRow: function (row) {
+			var temp = transpose(this.mdarr);
+			temp.push(row);
+			this.mdarr = transpose(temp);
+		},
+
+		getDataRange: function () {
+			let maxRows = this.getLastRow(),
+				maxCols = this.getLastColumn();
+			return Range(this.mdarr, this);
+		},
 	}
 }
 
 function Spreadsheet(sheets) {
-	this.sheets = sheets || [Sheet('Untitled')];
+	this.sheets = sheets || [Sheet('Test')];
 
 	return {
 		sheets: this.sheets,
@@ -215,13 +247,16 @@ function Spreadsheet(sheets) {
 			return this.getSheetByTitle(sheetName).getRange(split[1]);
 		},
 
-		getSheetByTitle: function(title) {
+		getSheetByName: function(title) {
 			for (var i = 0; i < this.sheets.length; i++) {
 				var sheet = this.sheets[i];
-				if (sheet.title === title)
-				return sheet;
+				if (sheet.title === title) {
+					return sheet;
+				}
 			}
-			return "TODO";
+			// Could not find, so make one
+			this.sheets.push(new Sheet(title));
+			return this.sheets[-1];
 		}
 	}
 }

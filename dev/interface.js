@@ -17,3 +17,7 @@ function load() {
 function doGet() {
   return app.doGet();
 }
+
+function saveButton(tab, title, link) {
+	app.saveButton(tab, title, link)
+}

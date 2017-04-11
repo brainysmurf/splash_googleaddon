@@ -4,7 +4,21 @@ $(function () {
 
 	// Make the tabs
 	var $tabs = $('#tabs').tabs();
+	var $submitButton = $('#submitButton').button();
 
+	$submitButton.click(function () {
+		google.script.run
+			.withSuccessHandler(function () {
+				console.log('successful');
+			})
+			.withFailureHandler(function (err) {
+				console.log(err);
+			})
+			.saveButton('Test',
+				$('#buttonName').val(),
+				$('#buttonLink').val()
+			);
+	});
 });
 
 </script>
