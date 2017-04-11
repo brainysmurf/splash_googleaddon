@@ -34,14 +34,15 @@
   };
 
   app.clearButtons = function() {
+    app.buttons = [];
   };
 
   app.saveButton = function (sheet, btnTitle, btnLink) {
-
+    app.buttons.push([btnTitle, btnLink]);
   };
 
   app.getButtons = function (sheet) {
-
+    return app.buttons;
   };
 
 })(this);
