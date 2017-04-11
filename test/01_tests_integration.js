@@ -1,30 +1,13 @@
 (function () {
 	'use strict';
 
-	let assert = require('chai').assert;
-	let app = require('./virtual').app;
-
 	describe("Integration Tests", function () {
 
 		describe("Buttons", function () {
-
-			var sheet = null;
 			
-			it('saves', function () {
-				let buttonTitle = 'Title',
-					buttonLink = 'Link';
-				app.saveButton(sheet, buttonTitle, buttonLink);
-				var buttons = app.getButtons(sheet);
-				assert.deepEqual(buttons, [
-					[buttonTitle, buttonLink]
-				]);
-			});
+			it('can be saved');
 
-			it('clears', function () {
-				app.clearButtons(sheet);
-				var buttons = app.getButtons(sheet);
-				assert.deepEqual(buttons, []);
-			});
+			it('can be cleared');
 
 		});
 
