@@ -34,9 +34,14 @@ let hooksForMocks = {
 	},
 
 	SpreadsheetApp: {
-		getActiveSheet: function () {
-			return new Spreadsheet();
-		}
+		active: null,
+
+		getActiveSpreadsheet: function () {
+			if (this.active == null) {
+				this.active = new Spreadsheet();
+			}
+			return this.active;
+		},
 	},
 
 	Moment: moment,
@@ -50,7 +55,7 @@ var virtual = gas.require('./' + sourcePath, hooksForMocks);
 
 // Passed into include in order to ensure templates have virtual source too
 virtual.virtual = function () { 
-	gas.require('./' + sourcePath, hooksForMocks);
+	return gas.require('./' + sourcePath, hooksForMocks);
 };
 
 module.exports = virtual;
