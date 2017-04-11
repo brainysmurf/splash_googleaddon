@@ -14,14 +14,14 @@
 				let buttonTitle = 'Title',
 					buttonLink = 'Link';
 				app.saveButton(sheet, buttonTitle, buttonLink);
-				var buttons = app.getButtons();
+				var buttons = app.getButtons(sheet);
 				assert.deepEqual(buttons, [
 					[buttonTitle, buttonLink]
 				]);
 			});
 
 			it('clears', function () {
-				app.clearButtons();
+				app.clearButtons(sheet);
 				var buttons = app.getButtons(sheet);
 				assert.deepEqual(buttons, []);
 			});
