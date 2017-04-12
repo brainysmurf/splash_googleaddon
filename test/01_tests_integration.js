@@ -1,6 +1,7 @@
 (function () {
 	'use strict';
 
+<<<<<<< HEAD
 	let assert = require('chai').assert;
 	let virtual = require('./virtual');
 	let app = virtual.app;
@@ -39,6 +40,15 @@
 					[buttonTitle, buttonLink]
 				]);
 			});
+=======
+	describe("Integration Tests", function () {
+
+		describe("Buttons", function () {
+			
+			it('can be saved');
+
+			it('can be cleared');
+>>>>>>> cbb2848352eb7d0ca13515dec81b1fd49ecd16a9
 
 		});
 

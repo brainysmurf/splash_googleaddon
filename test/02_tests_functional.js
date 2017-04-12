@@ -3,9 +3,9 @@
 
 	describe('User loads main page', function () {
 
-		describe('submits new button', function () {
+		describe('fills out form, submits', function () {
 
-			it("should save to spreadsheet");
+			it("calls persistence function");
 
 		});
 
