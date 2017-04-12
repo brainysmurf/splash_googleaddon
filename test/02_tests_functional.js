@@ -1,12 +1,47 @@
 (function () {
 	'use strict';
 
+	let assert = require('chai').assert;
+	let app = require('./virtual').app;
+	let Browser = require('zombie');
+
+	var webdriver = require('selenium-webdriver'),
+	    By = webdriver.By;
+
+	var server = require('./server.js');
+	server.create();
+
 	describe('User loads main page', function () {
 
-		describe('fills out form, submits', function () {
+		before(function (done) {
+			this.driver = new webdriver.Builder()
+				.forBrowser('chrome')
+				.build();
+			this.driver.get('localhost:8888/Main');
+			done();
+		});
 
-			it("calls persistence function");
+		describe('submits new button', function () {
 
+			var sheet = null;
+
+			it("should save to spreadsheet", function () {
+				let buttonTitle = 'Title',
+					buttonLink = 'Link';
+				this.driver.findElement(By.name('buttonName')).sendKeys('Title');
+				this.driver.findElement(By.name('buttonLink')).sendKeys('Link');
+				this.driver.findElement(By.name('submitButton')).click();
+
+				var buttons = app.getButtons(sheet);
+				assert.deepEquals(buttons, [
+					['Title', 'Link']
+				]);
+			});
+
+		});
+
+		after(function () {
+			this.driver.quit();
 		});
 
 	});
