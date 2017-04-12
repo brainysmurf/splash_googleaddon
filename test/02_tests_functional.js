@@ -4,8 +4,8 @@
 	let assert = require('chai').assert;
 	let app = require('./virtual').app;
 	let Browser = require('zombie');
-
 	let Spreadsheet = require('./Spreadsheet');
+
 
 	var webdriver = require('selenium-webdriver'),
 	    By = webdriver.By;
@@ -23,24 +23,22 @@
 			done();
 		});
 
-		describe('fills out new button form', function () {
+		describe('submits new button', function () {
 
-			var sheet = Spreadsheet.makeSheet('Title');
+			var sheet = Spreadsheet.makeSheet('Test');
 
-			it("clicks submit, should call saveButton to persist", function () {
+			it("should save to spreadsheet", function () {
 				let buttonTitle = 'Title',
 					buttonLink = 'Link';
-				this.driver.findElement(By.id('buttonName')).sendKeys('Title');
-				this.driver.findElement(By.id('buttonLink')).sendKeys('Link');
-				this.driver.findElement(By.id('submitButton')).click();
+				this.driver.findElement(By.name('buttonName')).sendKeys('Title');
+				this.driver.findElement(By.name('buttonLink')).sendKeys('Link');
+				this.driver.findElement(By.name('submitButton')).click();
 
-				var value = this.driver.findElement(By.id('result')).getText().then(function (text) {
-					assert.equal(value, 'Title/Link');
-				});		
-
+				var buttons = app.getButtons(sheet);
+				assert.deepEquals(buttons, [
+					['Title', 'Link']
+				]);
 			});
-
-			it("hits return, should call saveButton to persist");
 
 		});
 

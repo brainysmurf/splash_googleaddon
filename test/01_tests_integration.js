@@ -12,9 +12,10 @@
 		describe("Buttons", function () {
 
 			let sheetTitle = 'Test';
-			var sheet = Spreadsheet.makeSheet(sheetTitle);
 			
-			it('persists', function () {
+			var sheet = null;
+			
+			it('saves', function () {
 				let buttonTitle = 'Title',
 					buttonLink = 'Link';
 				app.saveButton(sheet, buttonTitle, buttonLink);
@@ -41,8 +42,6 @@
 			});
 
 		});
-
 	});
-
 
 })();
