@@ -6,15 +6,12 @@
 	let app = virtual.app;
 
 	let Spreadsheet = require('./Spreadsheet');
-	let assert = require('chai').assert;
-	let app = require('./virtual').app;
 
 	describe("Integration Tests", function () {
 
 		describe("Buttons", function () {
 
 			let sheetTitle = 'Test';
-			var sheet = Spreadsheet.makeSheet(sheetTitle);
 			
 			var sheet = null;
 			
@@ -44,17 +41,7 @@
 				]);
 			});
 
-	describe("Integration Tests", function () {
-
-		describe("Buttons", function () {
-			
-			it('can be saved');
-
-			it('can be cleared');
-
 		});
-
 	});
-
 
 })();
